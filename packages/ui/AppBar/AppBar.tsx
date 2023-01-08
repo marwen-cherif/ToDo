@@ -1,6 +1,5 @@
 import React, { FC, Suspense } from "react";
 import MuiAppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -9,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import UserAvatar from "./UserAvatar/UserAvatar";
 import { Skeleton } from "@mui/material";
+import { $AppBar } from "./AppBar.styles";
 
 interface AppBarProps {
   onLogout: () => Promise<void>;
@@ -25,7 +25,7 @@ const AppBar: FC<AppBarProps> = ({ onLogout }) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <$AppBar sx={{ flexGrow: 1 }}>
       <MuiAppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -76,7 +76,7 @@ const AppBar: FC<AppBarProps> = ({ onLogout }) => {
           </div>
         </Toolbar>
       </MuiAppBar>
-    </Box>
+    </$AppBar>
   );
 };
 

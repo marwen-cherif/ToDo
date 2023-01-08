@@ -19,11 +19,14 @@
     "@fontsource/roboto": "^4.5.8",
     "@hookform/resolvers": "^2.9.10",
     "@mui/material": "^5.11.3",
+
     "date-fns": "^2.29.3",
+    "react-hook-form": "^7.41.5",
     "react-query": "^3.39.2",
     "react-toastify": "^9.1.1",
-    "react-hook-form": "^7.41.5",
-    "yup": "^0.32.11"
+    "uuid": "^9.0.0",
+    "yup": "^0.32.11",
+    "@mui/icons-material": "^5.11.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -31,7 +34,8 @@
     "eslint-config-custom": "*",
     "jest": "^29.3.1",
     "prettier": "latest",
-    "turbo": "latest"
+    "turbo": "latest",
+    "@types/uuid": "^9.0.0"
   },
   "engines": {
     "node": ">=14.0.0"

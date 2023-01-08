@@ -7,7 +7,13 @@ import { Input, InputTypes } from "ui/Input/Input";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Card, CardContent, FormControl, FormHelperText } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  FormControl,
+  FormHelperText,
+  Typography,
+} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import { $Container, $Title } from "./login.styles";
 
@@ -50,7 +56,11 @@ const LoginPage = () => {
         <Grid2 xs={12} sm={10} smOffset={2}>
           <Card>
             <CardContent>
-              <$Title>Log In</$Title>
+              <$Title>
+                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+                  Log In
+                </Typography>
+              </$Title>
               <FormProvider {...formContext}>
                 <form onSubmit={onSubmit} noValidate>
                   <Grid2 container spacing={2}>

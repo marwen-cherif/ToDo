@@ -1,11 +1,11 @@
-import { Button } from "ui";
 import ProtectedRoute from "../components/ProtectedRoute";
+import React from "react";
+import ToDoList from "ui/ToDoList/ToDoList";
 
 function Web() {
   return (
     <ProtectedRoute>
-      <h1>Web</h1>
-      <Button />
+      <ToDoList />
     </ProtectedRoute>
   );
 }

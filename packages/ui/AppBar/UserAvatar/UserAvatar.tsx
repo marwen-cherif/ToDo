@@ -1,15 +1,9 @@
 import React, { FC } from "react";
-import { useQuery } from "react-query";
 import { Avatar } from "@mui/material";
+import { useGetRandomUserImageUrl } from "./useGetRandomUserImageUrl";
 
 const UserAvatar: FC = () => {
-  const { data: imageUrl } = useQuery("getRandomUser", async () => {
-    const response = await fetch("https://randomuser.me/api/");
-
-    const { results } = await response.json();
-
-    return results?.at(0).picture.large;
-  });
+  const imageUrl = useGetRandomUserImageUrl();
 
   return <Avatar alt={imageUrl} src={imageUrl} />;
 };
