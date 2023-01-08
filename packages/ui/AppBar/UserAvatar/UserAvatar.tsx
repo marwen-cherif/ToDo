@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useQuery } from "react-query";
-import { $Avatar } from "./UserAvatar.styles";
+import { Avatar } from "@mui/material";
 
 const UserAvatar: FC = () => {
   const { data: imageUrl } = useQuery("getRandomUser", async () => {
@@ -11,7 +11,7 @@ const UserAvatar: FC = () => {
     return results?.at(0).picture.large;
   });
 
-  return <$Avatar src={imageUrl} />;
+  return <Avatar alt={imageUrl} src={imageUrl} />;
 };
 
 UserAvatar.displayName = "UserAvatar";
