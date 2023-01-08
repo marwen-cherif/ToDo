@@ -5,7 +5,9 @@
   "types": "./index.tsx",
   "license": "MIT",
   "scripts": {
-    "lint": "TIMING=1 eslint \"**/*.ts*\""
+    "lint": "TIMING=1 eslint \"**/*.ts*\"",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@types/react": "^17.0.37",
@@ -14,6 +16,16 @@
     "eslint-config-custom": "*",
     "react": "^18.2.0",
     "tsconfig": "*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.9.4",
+    "@fontsource/roboto": "^4.5.8",
+    "@hookform/resolvers": "^2.9.10",
+    "@mui/material": "^5.11.2",
+    "date-fns": "^2.29.3",
+    "react-hook-form": "^7.41.5",
+    "react-query": "^3.39.2",
+    "react-toastify": "^9.1.1",
+    "yup": "^0.32.11",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5"
   }
 }

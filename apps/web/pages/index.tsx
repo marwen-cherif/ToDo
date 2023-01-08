@@ -1,10 +1,13 @@
 import { Button } from "ui";
+import ProtectedRoute from "../components/ProtectedRoute";
 
-export default function Web() {
+function Web() {
   return (
-    <div>
+    <ProtectedRoute>
       <h1>Web</h1>
       <Button />
-    </div>
+    </ProtectedRoute>
   );
 }
+
+export default Web;
