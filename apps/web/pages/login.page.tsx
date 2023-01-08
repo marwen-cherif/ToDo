@@ -12,6 +12,7 @@ import {
   CardContent,
   FormControl,
   FormHelperText,
+  Link,
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
@@ -96,6 +97,9 @@ const LoginPage = () => {
                           </FormHelperText>
                         )}
                       </FormControl>
+                    </Grid2>
+                    <Grid2 xs={12}>
+                      <Link href="/signup">You dont have an account ?</Link>
                     </Grid2>
                     <Grid2 xs={12}>
                       <LoadingButton

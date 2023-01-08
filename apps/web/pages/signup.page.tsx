@@ -2,105 +2,151 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/router";
+import { $Container, $Title } from "./signup.styles";
+import Grid2 from "@mui/material/Unstable_Grid2";
+import {
+  Card,
+  CardContent,
+  FormControl,
+  FormHelperText,
+  Link,
+  Typography,
+} from "@mui/material";
+import { Input, InputTypes } from "ui/Input/Input";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { ButtonTypes } from "ui";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 interface SignupType {
   email: string;
   password: string;
-  password_confirm: string;
+  confirmPassword: string;
 }
 const SignupPage = () => {
-  const methods = useForm<SignupType>({ mode: "onBlur" });
+  const formContext = useForm<SignupType>({
+    resolver: yupResolver(
+      Yup.object({
+        email: Yup.string().email().required("Email is required"),
+        password: Yup.string().required("Password is required"),
+        confirmPassword: Yup.string()
+          .test(
+            "Verify your password",
+            "Verify your password",
+            (value: any, context: any) => {
+              const { parent } = context;
+
+              return parent.password === value && value;
+            }
+          )
+          .required("Password is required"),
+      })
+    ),
+  });
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = methods;
+    formState: { errors, isSubmitSuccessful },
+  } = formContext;
 
   const { signUp } = useAuth();
   const router = useRouter();
 
-  const onSubmit = async (data: SignupType) => {
+  const onSubmit = handleSubmit(async (data) => {
     try {
       await signUp(data.email, data.password);
+
       router.push("/");
     } catch (error: any) {
       console.log(error.message);
     }
-  };
+  });
 
   return (
-    <div className="sign-up-form container mx-auto w-96 mt-12 border-2 border-gray-400">
-      <h2 className="px-12 mt-8 text-center text-2xl font-semibold text-blue-900">
-        Sign Up
-      </h2>
-      <FormProvider {...methods}>
-        <form
-          action=""
-          className="w-80 mx-auto pb-12 px-4"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <label htmlFor="" className="block mb-3 font-sans text-blue-900">
-                Email
-              </label>
-            </div>
-
-            <input
-              type="email"
-              {...register("email", { required: "Email is required" })}
-              className={`border border-solid rounded-lg ring:0 focus:ring-0 focus:outline-none border-gray-400 text-gray-500 text-normal py-3 h-12 px-6 text-lg w-full flex items-center`}
-            />
-            {errors.email && (
-              <p className="text-red-400">{errors.email.message}</p>
-            )}
-          </div>
-          <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <label htmlFor="" className="block mb-3 font-sans text-blue-900">
-                Password
-              </label>
-            </div>
-
-            <input
-              type="password"
-              {...register("password", { required: "Password is required" })}
-              className={`border border-solid rounded-lg ring:0 focus:ring-0 focus:outline-none border-gray-400 text-gray-500 text-normal py-3 h-12 px-6 text-lg w-full flex items-center`}
-            />
-            {errors.password && (
-              <p className="text-red-400">{errors.password.message}</p>
-            )}
-          </div>
-          <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <label htmlFor="" className="block mb-3 font-sans text-blue-900">
-                Confirm Password
-              </label>
-            </div>
-
-            <input
-              type="password"
-              {...register("password_confirm", {
-                required: "Verify your password",
-              })}
-              className={`border border-solid rounded-lg ring:0 focus:ring-0 focus:outline-none border-gray-400 text-gray-500 text-normal py-3 h-12 px-6 text-lg w-full flex items-center`}
-            />
-            {errors.password_confirm && (
-              <p className="text-red-400">{errors.password_confirm.message}</p>
-            )}
-          </div>
-          <div className="flex justify-center pt-8">
-            <button
-              type="submit"
-              className={`h-12 text-center w-2/3 bg-blue-900 border-2 rounded-md hover:shadow-lg hover:bg-blue-800 text-lg transition`}
-            >
-              <p className="capitalize text-white font-normal">submit</p>
-            </button>
-          </div>
-        </form>
-      </FormProvider>
-    </div>
+    <$Container>
+      <Grid2 container spacing={2}>
+        <Grid2 xs={12} sm={10} smOffset={2}>
+          <Card>
+            <CardContent>
+              <$Title>
+                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+                  Sign Up
+                </Typography>
+              </$Title>
+              <FormProvider {...formContext}>
+                <form onSubmit={onSubmit} noValidate>
+                  <Grid2 container spacing={2}>
+                    <Grid2 xs={12}>
+                      <FormControl fullWidth>
+                        <Input
+                          type={InputTypes.EMAIL}
+                          {...register("email")}
+                          placeholder="Email"
+                          autoFocus
+                          fullWidth
+                          required
+                        />
+                        {errors.email && (
+                          <FormHelperText error>
+                            {errors.email.message}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Grid2>
+                    <Grid2 xs={12}>
+                      <FormControl fullWidth>
+                        <Input
+                          type={InputTypes.PASSWORD}
+                          {...register("password")}
+                          placeholder="Password"
+                          fullWidth
+                          required
+                        />
+                        {errors.password && (
+                          <FormHelperText error>
+                            {errors.password.message}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Grid2>
+                    <Grid2 xs={12}>
+                      <FormControl fullWidth>
+                        <Input
+                          type={InputTypes.PASSWORD}
+                          {...register("confirmPassword")}
+                          placeholder="Confirm password"
+                          fullWidth
+                          required
+                        />
+                        {errors.confirmPassword && (
+                          <FormHelperText error>
+                            {errors.confirmPassword.message}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Grid2>
+                    <Grid2 xs={12}>
+                      <Link href="/login">You have an account ?</Link>
+                    </Grid2>
+                    <Grid2 xs={12}>
+                      <LoadingButton
+                        fullWidth
+                        type={ButtonTypes.SUBMIT}
+                        loading={isSubmitSuccessful}
+                        variant="contained"
+                      >
+                        Login
+                      </LoadingButton>
+                    </Grid2>
+                  </Grid2>
+                </form>
+              </FormProvider>
+            </CardContent>
+          </Card>
+        </Grid2>
+      </Grid2>
+    </$Container>
   );
 };
 
