@@ -47,11 +47,14 @@ const ToDoListContent: FC<{ initialTodos: Todo[] }> = ({ initialTodos }) => {
   const onSubmit = handleSubmit(async (data) => {
     prepend({ id: v4(), value: data.newTodo });
     resetField("newTodo");
+    setStorageItem({
+      key: "todos",
+      value: getValues("todos"),
+    });
   });
 
   const handleDeleteTodo = (index: number) => {
     remove(index);
-
     setStorageItem({
       key: "todos",
       value: getValues("todos").filter((todo, i) => i !== index),
