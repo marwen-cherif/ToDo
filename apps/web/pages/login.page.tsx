@@ -2,18 +2,12 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/router";
-import { Button, ButtonTypes } from "ui";
+import { ButtonTypes } from "ui";
 import { Input, InputTypes } from "ui/Input/Input";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import LoadingButton from "@mui/lab/LoadingButton";
-import {
-  Card,
-  CardContent,
-  FormControl,
-  FormGroup,
-  FormHelperText,
-} from "@mui/material";
+import { Card, CardContent, FormControl, FormHelperText } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import { $Container, $Title } from "./login.styles";
 
@@ -36,10 +30,7 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitSuccessful },
-    watch,
   } = formContext;
-
-  console.log(watch());
 
   const { logIn } = useAuth();
   const router = useRouter();

@@ -3,4 +3,5 @@ module.exports = {
   experimental: {
     transpilePackages: ["ui"],
   },
+  pageExtensions: ["page.tsx", "api.ts"],
 };

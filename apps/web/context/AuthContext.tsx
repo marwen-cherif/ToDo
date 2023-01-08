@@ -21,13 +21,11 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [user, setUser] = useState<UserType>({ email: null, uid: null });
+  const [user, setUser] = useState<UserType | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log({ user });
-
       if (user) {
         setUser({
           email: user.email,
@@ -41,8 +39,6 @@ export const AuthContextProvider = ({
 
     return () => unsubscribe();
   }, []);
-
-  console.log({ user });
 
   const signUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);

@@ -1,15 +1,26 @@
 import React, { FC, PropsWithChildren } from "react";
-import AppBar from "./AppBar";
-import { useAuth } from "../../context/AuthContext";
 import { Container } from "@mui/material";
 
+import AppBar from "ui/AppBar/AppBar";
+import { useAuth } from "../../context/AuthContext";
+
 const Layout: FC<PropsWithChildren> = ({ children }) => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+
+  if (!user) {
+    return <></>;
+  }
 
   return (
     <>
-      {user?.uid && <AppBar />}
-      <Container maxWidth="sm">{children}</Container>
+      {user?.email && (
+        <AppBar
+          onLogout={async () => {
+            await logOut();
+          }}
+        />
+      )}
+      {user && <Container maxWidth="sm">{children}</Container>}
     </>
   );
 };
