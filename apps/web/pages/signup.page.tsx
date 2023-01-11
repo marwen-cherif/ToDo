@@ -47,7 +47,8 @@ const SignupPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
+    setError,
   } = formContext;
 
   const { signUp } = useAuth();
@@ -59,6 +60,12 @@ const SignupPage = () => {
 
       router.push("/");
     } catch (error: any) {
+      if (error.code === "auth/weak-password") {
+        setError("password", {
+          message: "Password should be at least 6 characters",
+        });
+      }
+
       console.log(error.message);
     }
   });
@@ -74,6 +81,7 @@ const SignupPage = () => {
                   Sign Up
                 </Typography>
               </$Title>
+
               <FormProvider {...formContext}>
                 <form onSubmit={onSubmit} noValidate>
                   <Grid2 container spacing={2}>
@@ -133,10 +141,10 @@ const SignupPage = () => {
                       <LoadingButton
                         fullWidth
                         type={ButtonTypes.SUBMIT}
-                        loading={isSubmitSuccessful}
+                        loading={isSubmitting}
                         variant="contained"
                       >
-                        Login
+                        Signup
                       </LoadingButton>
                     </Grid2>
                   </Grid2>

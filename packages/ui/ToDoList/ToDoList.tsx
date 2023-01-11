@@ -5,18 +5,12 @@ import { Todo } from "./ToDoList.types";
 import ToDoListContent from "./ToDoListContent";
 
 const ToDoList: FC = () => {
-  const { data: todos } = useQuery(
-    "getTodosFromLocalStorage",
-    async () => {
-      return await getStorageItem<Todo[]>({
-        key: "todos",
-        defaultValue: [],
-      });
-    },
-    {
-      staleTime: Infinity,
-    }
-  );
+  const { data: todos } = useQuery("getTodosFromLocalStorage", async () => {
+    return await getStorageItem<Todo[]>({
+      key: "todos",
+      defaultValue: [],
+    });
+  });
 
   if (!todos) {
     return <></>;
